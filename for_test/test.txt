@@ -1,0 +1,20 @@
+課題 (3-4)
+int 型変数 x と y, および int 型へのポインタ変数 q, r を受け取り, x を y で割った商を q 番地の変数に, 剰余を r 番地の変数に格納して返す関数 divrem を作成せよ.
+
+下記のプログラムの空欄を埋め, 完成したプログラムを divrem.c として提出せよ.
+
+#include <stdio.h>
+
+void divrem(int x, int y, int *q, int *r)
+{
+  /* この関数の本体を完成させよ */
+}
+
+int main(void)
+{
+  int x = 10, y = 3;
+  int q, r;
+  divrem( /* ここを埋めて, x を y で割った商と剰余が q と r に格納されるようにせよ */ );
+  printf("x / y = %d ... %d\n", q, r);
+  return 0;
+}
