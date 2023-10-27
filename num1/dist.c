@@ -4,23 +4,22 @@
 
 int main(void)
 {
-    double x1, x2, y1, y2, z, z0, z1, z2;
-    // printf("input x1 ");
-    scanf("%lf", &x1);
-    // printf("input y1 ");
-    scanf("%lf", &y1);
-    // printf("input x2 ");
-    scanf("%lf", &x2);
-    // printf("input y2 ");
-    scanf("%lf", &y2);
+    double x1, y1, x2, y2, z;
+    x1 = 0;
+    y1 = 0;
+    x2 = 0;
+    y2 = 0;
+    z = 0;
 
-    z1 = (x1 -x2)*(x1 - x2);
-    z2 = (y1 -y2)*(y1 - y2);
-    z0 = z1 + z2;
-
-    z = sqrt(z0);
-
-    printf("%.4f", z);
+    for (;;)
+    {
+        if (scanf("%lf %lf %lf %lf", &x1, &y1, &x2, &y2) == EOF)
+        {
+            break;
+        }
+        z = sqrt(fabs(x2 - x1) * fabs(x2 - x1) + fabs(y2 - y1) * fabs(y2 - y1));
+        printf("%.4f\n", z);
+    }
 
     return 0;
 }
