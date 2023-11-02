@@ -11,7 +11,7 @@ int main(void)
         scanf("%lf", &a);
         scanf("%lf", &b);
         scanf("%lf", &c);
-        qeq2(a, b, c);
+        qeq(a, b, c);
         if (a == EOF || a == 0)
         {
             break;

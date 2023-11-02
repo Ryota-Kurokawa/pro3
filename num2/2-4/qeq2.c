@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "qeq2.h"
 
-void qeq2(double a, double b, double c)
+void qeq(double a, double b, double c)
 {
     double result1 = 0;
     double result2 = 0;

@@ -18,8 +18,8 @@ double bmi(body_index_t x)
 void body_index_print(body_index_t x)
 {
     printf("name: %s\n", x.name);
-    printf("stature: %0.1f\n", x.stature);
-    printf("weight: %0.1f\n", x.weight);
+    printf("stature: %0.1fcm\n", x.stature);
+    printf("weight: %0.1fkg\n", x.weight);
     printf("BMI: %0.1f\n", bmi(x));
 }
 

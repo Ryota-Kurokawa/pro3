@@ -26,8 +26,8 @@ int main(void)
     for (;;)
     {
         printf("番地を入力 : ");
-        scanf("%p", &r);
-        if (p == 0)
+        
+        if (scanf("%p", &r) ==0 )
         {
             break;
         }
