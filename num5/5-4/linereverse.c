@@ -11,14 +11,27 @@ int main(void)
   char s[MAX_S + 1];
   
   int n = 0;
-  while (fgets(s, MAX_LINE, stdin) != NULL)
+  while (fgets(s, MAX_LINE, stdin) != NULL && n < MAX_LINE)
   {
     line[n] = (char *)malloc(sizeof(char) * (strlen(s) + 1));
     strcpy(line[n], s);
     // printf("%s", line[n]);
+    if (strlen(line[n]) >= LINE_LEN)
+    {
+      fprintf(stderr, "行が長すぎます\n");
+    }else
+    {
+      n++;
+    }
     
-    n++;
+    
+    
   }
+  if (n == MAX_LINE -1)
+  {
+    fprintf(stderr, "行が多すぎます\n");
+  }
+  
   for (int i = n - 1; i >= 0; i--)
   {
     printf("%s", line[i]);
@@ -28,4 +41,3 @@ int main(void)
   
   return 0;
 }
-
