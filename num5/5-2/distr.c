@@ -28,5 +28,7 @@ int main(void)
       printf("%d: %d\n", i, b[i]);
     }
   }
+  free(a);
+  free(b);
   return 0;
 }
