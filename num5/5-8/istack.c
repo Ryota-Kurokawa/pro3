@@ -3,6 +3,12 @@
 #include <string.h>
 #include "istack.h"
 
+
+void istack_delete(istack_t *s)
+{
+  free(s->data);
+  free(s);
+}
 istack_t *istack_new(int size)
 {
   istack_t *a = (istack_t *)malloc(sizeof(istack_t));
@@ -10,8 +16,8 @@ istack_t *istack_new(int size)
   {
     exit(1);
   }
-  a->size = size;
   a->sp = 0;
+  a->size = size;
   a->data = (int *)malloc(sizeof(int) * size);
   if (a->data == NULL)
   {
@@ -19,11 +25,6 @@ istack_t *istack_new(int size)
     exit(1);
   }
   return a;
-}
-void istack_delete(istack_t *s)
-{
-  free(s->data);
-  free(s);
 }
 void istack_push(istack_t *s, int d)
 {
@@ -35,11 +36,22 @@ void istack_push(istack_t *s, int d)
     {
       exit(1);
     }
-    s->data = b;
     s->size = a;
+    s->data = b;
   }
-  s->data[s->sp] = d;
   s->sp += 1;
+  s->data[s->sp] = d;
+}
+int istack_empty(istack_t *s)
+{
+  if (s->sp == 0)
+  {
+    return 1;
+  }
+  else
+  {
+    return 0;
+  }
 }
 void istack_pop(istack_t *s, int *d)
 {
@@ -51,17 +63,6 @@ void istack_pop(istack_t *s, int *d)
   else if (s->sp == 0)
   {
     *d = 0;
-  }
-}
-int istack_empty(istack_t *s)
-{
-  if (s->sp == 0)
-  {
-    return 1;
-  }
-  else
-  {
-    return 0;
   }
 }
 int istack_full(istack_t *s)
