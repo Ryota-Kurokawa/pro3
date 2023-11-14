@@ -20,20 +20,20 @@
 
 void sort(int n, double *a)
 {
-  int l;
+  int l = 0;
   int r = n - 1;
   int p = a[0];
-  for (l = 0; l <= r; l++)
+  while (l <= r)
   {
-    if (a[l] < p)
+    while (a[l] < p)
     {
       l++;
     }
-   else if (a[r] > p)
+    while (p < a[r])
     {
       r--;
     }
-    else if (l <= r)
+    if (l <= r)
     {
       double tmp = a[l];
       a[l] = a[r];

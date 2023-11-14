@@ -3,8 +3,8 @@
 #include <time.h> /* 時間計測に必要 */
 #include <assert.h>
 
-#define MIN_N  1024 /* 完成後にもっと大きくする */
-#define MAX_N  65536 /* 完成後にもっと大きくする */
+#define MIN_N  1000 /* 完成後にもっと大きくする */
+#define MAX_N  10000 /* 完成後にもっと大きくする */
 #define N_TEST 8
 
 
