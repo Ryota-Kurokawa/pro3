@@ -690,15 +690,19 @@ CPU time = 0.016793
 
 ----------------------------------------
 
-[課題]
+[課題7]
+下記の指示に従って, 課題 (7-2) の単純選択法または課題 (7-4) の単純挿入法 (自分が理解しやすい方を選べ) の void sort(int n, double *a) を書き換え, 文字列 (文字配列) の配列をソートする void string_sort(int n, char (*a)[STRLEN+1]) を string_sort.c に作成せよ.
 
 結果
-
+nakamura
+suzuki
+tanaka
+yamada
+yamamoto
 ----------------------------------------
 
-[課題]
-
-
+[課題8]
+下記の指示に従って, 課題 (7_2) の単純選択法の void sort(int n, double *a) を書き換え, 次のように定義された構造体の配列を, 構造体中の age の昇順に, ただし age が等しいものは height の昇順にソートする関数 void str_sort(int n, record_t *a) を作成せよ. 関数は str_sort.c に格納せよ.
 
 
 結果
