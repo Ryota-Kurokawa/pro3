@@ -1,0 +1,214 @@
+科目名: プログラミング実習III
+課題: B3
+番号: 37022443
+氏名: 黒川良太
+作成: 10/7
+
+----------------------------------------
+
+[課題8-1]
+まず, iata_db.c と次の iata_test1.c をコンパイル＆リンクして実行してみよ.
+
+
+結果　
+[   0] AAC Al Arish : Egypt - Al Arish Airport
+[   1] FCO Rome : Italy Leonardo Da Vinci/Fiumicino
+[   2] ITM Osaka : Japan Itami International Was Osaka
+[   3] JFK New York : NY : USA John F Kennedy Intl Airport
+[   4] JRO Kilimanjaro : Tanzania Kilimanjaro
+[   5] KIX Osaka : Japan Kansai International
+[   6] NRT Tokyo : Japan - Narita
+[   7] PEK Beijing : China Peking Capital Airport
+[   8] SAF Santa Fe : NM : USA Santa Fe Municipal Airport
+[   9] SFO San Francisco : CA : USA San Francisco Intl Airport
+[   10] 
+[   11] 
+[   12] 
+[   13] 
+[   14] 
+[   15] 
+
+実行のみだったため苦戦はしなかった。
+
+----------------------------------------
+
+[課題8-2]
+関数 db_linear_search の作成
+
+結果
+AAC => Al Arish : Egypt - Al Arish Airport
+NO RECORD
+FCO => Rome : Italy Leonardo Da Vinci/Fiumicino
+JFK => New York : NY : USA John F Kennedy Intl Airport
+JRO => Kilimanjaro : Tanzania Kilimanjaro
+KIX => Osaka : Japan Kansai International
+NO RECORD
+NRT => Tokyo : Japan - Narita
+NO RECORD
+NO RECORD
+NO RECORD
+PEK => Beijing : China Peking Capital Airport
+SAF => Santa Fe : NM : USA Santa Fe Municipal Airport
+NO RECORD
+ITM => Osaka : Japan Itami International Was Osaka
+SFO => San Francisco : CA : USA San Francisco Intl Airport
+NO RECORD
+NO RECORD
+
+思っているより難関ではなかったが次のテストのためにも復習したいと思う。
+
+----------------------------------------
+
+[課題8-3]
+課題 (8-2) の iata_test2.c を書き換え, key を入力する毎に db_linear_search で消費した CPU 時間を計測して表示するプログラム iata_cpu1.c を作成せよ.
+
+結果
+cpu = 0.001267
+AAC => Al Arish : Egypt - Al Arish Airport
+cpu = 0.144529
+CXI => Christmas Island : Australia - Cassidy Airport
+cpu = 0.223251
+IYK => Inyokern : CA : USA Inyokern Airport
+cpu = 0.333638
+MVD => Montevideo : Uruguay Carrasco
+cpu = 0.428124
+SJW => Shijiazhuang : China Shijiazhuang
+cpu = 0.522033
+YFB => Iqaluit : Northwest Territories : Canada - Iqaluit-Frobisher Bay Airport
+cpu = 0.559446
+ZYL => Sylhet : Bangladesh - Sylhet Airport
+cpu = 1.268793
+NO RECORD
+cpu = 1.263643
+NO RECORD
+cpu = 1.245760
+NO RECORD
+
+今回の課題は、前回の課題と同じように簡単でした。ただし、CPU時間を計測する方法を知らなかったため、調べるのに時間がかかりました。テストのために復習したいです。
+
+----------------------------------------
+
+[課題8-4]
+二分探索により空港データの検索を行う関数 char *db_binary_search(db_t *db, char key[KEY_LEN+1]) を作成し, iata_db.c に追加せよ. この関数の引数と返り値は db_linear_search と同じである.
+
+
+結果
+AAC => Al Arish : Egypt - Al Arish Airport
+NO RECORD
+FCO => Rome : Italy Leonardo Da Vinci/Fiumicino
+JFK => New York : NY : USA John F Kennedy Intl Airport
+JRO => Kilimanjaro : Tanzania Kilimanjaro
+KIX => Osaka : Japan Kansai International
+NO RECORD
+NRT => Tokyo : Japan - Narita
+NO RECORD
+NO RECORD
+NO RECORD
+PEK => Beijing : China Peking Capital Airport
+SAF => Santa Fe : NM : USA Santa Fe Municipal Airport
+NO RECORD
+ITM => Osaka : Japan Itami International Was Osaka
+SFO => San Francisco : CA : USA San Francisco Intl Airport
+NO RECORD
+NO RECORD
+
+前回の課題と同じように簡単でした。ただし、二分探索のアルゴリズムを理解するのに時間がかかりました。テストのために復習したいです。
+----------------------------------------
+
+[課題8-5]課題 (8-3) の iata_cpu1.c の db_linear_search を db_binary_search に書き換えて iata_cpu2.c を作成し, 二分探索の計算時間を計測せよ.
+
+結果
+cpu = 0.014760
+cpu = 0.009174
+cpu = 0.010427
+cpu = 0.009419
+cpu = 0.007321
+cpu = 0.007498
+cpu = 0.006806
+cpu = 0.007267
+cpu = 0.007620
+cpu = 0.006671
+
+cpu = 0.011467
+cpu = 0.006743
+cpu = 0.008160
+cpu = 0.006990
+cpu = 0.005875
+cpu = 0.005991
+cpu = 0.005788
+cpu = 0.005488
+cpu = 0.005977
+cpu = 0.004933
+
+少し、オプション付きの方が早いように見られる。
+また、探索方法によっても差異が見られた。
+
+
+
+
+----------------------------------------
+
+[課題8-6]
+ハッシュ法 (closed hash) により空港データの検索を行えるようにするために, 下記の 2 つの関数 db_hash_load と db_hash_search を作成し, iata_db.c に追加せよ.
+
+
+結果
+
+AAC => Al Arish : Egypt - Al Arish Airport
+CDG => Paris : France Charles De Gaulle
+FCO => Rome : Italy Leonardo Da Vinci/Fiumicino
+JFK => New York : NY : USA John F Kennedy Intl Airport
+JRO => Kilimanjaro : Tanzania Kilimanjaro
+KIX => Osaka : Japan Kansai International
+NO RECORD
+NRT => Tokyo : Japan - Narita
+ICN => Incheon [Seoul] : South Korea - Incheon International Airport
+SYD => Sydney : New South Wales : Australia Sydney /KingsfordSmith/ Airport
+LHR => London : England : United Kingdom Heathrow
+PEK => Beijing : China Peking Capital Airport
+SAF => Santa Fe : NM : USA Santa Fe Municipal Airport
+NO RECORD
+ITM => Osaka : Japan Itami International Was Osaka
+SFO => San Francisco : CA : USA San Francisco Intl Airport
+NO RECORD
+ZYL => Sylhet : Bangladesh - Sylhet Airport
+
+これは非常に難しかったが、ハッシュ法のアルゴリズムを理解するのに役立ちました。しかし、ハッシュ法の実装には多くの時間がかかりました。テストのために復習したいです。
+
+----------------------------------------
+
+[課題8-7]
+課題 (8-3) の iata_cpu1.c に対して下記の変更を行って iata_cpu3.c を作成し, ハッシュ法の計算時間を計測せよ.
+
+結果
+
+cpu =    0.002563 [sec]
+cpu =    0.002338 [sec]
+cpu =    0.002372 [sec]
+cpu =    0.002358 [sec]
+cpu =    0.006264 [sec]
+cpu =    0.026323 [sec]
+cpu =    0.001392 [sec]
+cpu =    0.001397 [sec]
+cpu =    0.000956 [sec]
+cpu =    0.000950 [sec]
+
+cpu =    0.001623 [sec]
+cpu =    0.001507 [sec]
+cpu =    0.001326 [sec]
+cpu =    0.001325 [sec]
+cpu =    0.003918 [sec]
+cpu =    0.014169 [sec]
+cpu =    0.000890 [sec]
+cpu =    0.000592 [sec]
+cpu =    0.000455 [sec]
+cpu =    0.000454 [sec]
+
+やはりこちらもオプションによって差異が見られた。
+さらに、線形探索や二分探索よりもハッシュ法の方が早いことがわかった。効率的にデータを検索するためには、ハッシュ法が最適であるのではないかと考えられる。
+
+
+[課題 R8 の感想]
+この課題は、プログラミングスキルを深く理解するための素晴らしい機会でした。特に、各問題が異なるアプローチを必要とするため、思考の柔軟性を鍛えるのに役立ちました。
+また、エラーと対話しながら解決策を見つける経験は、問題解決能力を向上させるのに非常に有益でした。全体として、実用的なプログラミングスキルを向上させるのに役立つ素晴らしい課題でした。
+次回のテストに向けて、復習したいと思います。

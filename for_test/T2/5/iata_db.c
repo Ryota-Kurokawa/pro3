@@ -156,26 +156,13 @@ void db_dump(db_t *db)
 /* db_t 型変数の全データを出力する */
 {
   /* 課題 (8-1) : この関数を完成させよ*/
-  for (int i = 0; i <= MAX_RECORDS - 1; i++)
-  {
-    printf("[   %d] ", i);
-    if (db->record[i].data != NULL)
-    {
-      printf("%s %s\n", db->record[i].key, db->record[i].data);
-    }
-    else
-    {
-      printf("%s\n", db->record[i].key);
-    }
-  }
 }
-
 
 char *db_linear_search(db_t *db, char key[])
 {
-  for (int i = 0; i <= MAX_RECORDS - 1; i++)
+  for (int i = 0; i < MAX_RECORDS; i++)
   {
-    if (strcmp(db->record[i].key, key) == 0)
+    if (strcmp(db->record[i].key, key) >= 0)
     {
       return db->record[i].data;
     }
@@ -183,96 +170,26 @@ char *db_linear_search(db_t *db, char key[])
   return NULL;
 }
 
-char *db_binary_search(db_t *db, char key[])
-/* 二分探索 */
+char *db_binary_search(db_t *db, char key[KEY_LEN + 1])
 {
   int low = 0;
-  int high = db->n - 1;
-  int mid;
-
-  while (low <= high)
+  int high = (db->n) - 1;
+  int mid = (high + low) / 2;
+  while (high >= low)
   {
-
-    mid = (low + high) / 2;
-
     if (strcmp(db->record[mid].key, key) == 0)
     {
       return db->record[mid].data;
     }
     else if (strcmp(db->record[mid].key, key) < 0)
     {
-      low = mid + 1;
+      low = mid;
+      mid = (high + low) / 2;
     }
     else
     {
-      high = mid - 1;
-    }
-  }
-  return NULL;
-}
-
-int db_hash_f(char key[])
-{
-  int i;
-  int v = 0;
-  for (i = 0; key[i] != '\0'; i++)
-  {
-    v = (v << 5) + (key[i] - 'A');
-  }
-  return v % MAX_RECORDS;
-}
-
-void db_hash_load(db_t *db)
-/* データを読み込む (ハッシュ用) */
-{
-  FILE *fp;
-  char line[LINE_LEN + 1];
-  char key[KEY_LEN + 1];
-  char data[DATA_LEN + 1];
-
-  /* ファイルのオープン */
-  if ((fp = fopen(IATA_F, "r")) == NULL)
-  {
-    fprintf(stderr, "ファイル (%s) が開けません\n", IATA_F);
-    exit(1);
-  }
-
-  /* データの読み込み */
-  while (fgetss(line, LINE_LEN, fp) != NULL)
-  {
-    if (MAX_RECORDS <= db->n)
-    {
-      fprintf(stderr, "MAX_RECORDS(%d) <= n(%d)\n", MAX_RECORDS, db->n);
-      exit(1);
-    }
-    extract_data(line, key, data);
-    int h = db_hash_f(key);
-    while (strcmp(db->record[h].key, "") != 0)
-    {
-      h++;
-      if (h == MAX_RECORDS)
-        h = 0;
-    }
-    record_set(&db->record[h], key, data);
-    db->n++;
-  }
-  fclose(fp);
-}
-
-char *db_hash_search(db_t *db, char key[KEY_LEN + 1])
-/* ハッシュによる探索 */
-{
-  int h = db_hash_f(key);
-  while (strcmp(db->record[h].key, "") != 0)
-  {
-    if (strcmp(db->record[h].key, key) == 0)
-    {
-      return db->record[h].data;
-    }
-    h += 1;
-    if (h == MAX_RECORDS)
-    {
-      h = 0;
+      high = mid;
+      mid = (high + low) / 2;
     }
   }
   return NULL;

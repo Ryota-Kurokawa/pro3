@@ -26,7 +26,7 @@ int main(void)
       data = db_linear_search(&db, key);
     }
     clk_end = clock();
-    fprintf(stderr, "cpu = %f\n", (double)(clk_end - clk_start) / CLOCKS_PER_SEC);
+    printf("cpu = %f\n", (double)(clk_end - clk_start) / CLOCKS_PER_SEC);
     if (data != NULL)
     {
       printf("%s => %s\n", key, data);
@@ -34,7 +34,6 @@ int main(void)
     {
       printf("NO RECORD\n");
     }
-    
   }
 
   db_delete(&db);

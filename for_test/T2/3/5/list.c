@@ -31,11 +31,12 @@ static list_node_t *insert_node(list_node_t *n, int val)
   /* ノード n (nの指す節点) の直後に挿入 (この部分を埋めよ) */
   new_node = (list_node_t *)malloc(sizeof(list_node_t));
   if (new_node == NULL)
+  {
     return NULL;
+  }
   new_node->val = val;
   new_node->next = n->next;
   n->next = new_node;
-  
 
   return new_node;
 }
@@ -44,7 +45,7 @@ void list_print(list_node_t *head_p)
 /* リストの内容を表示する */
 {
   list_node_t *p;
-  printf("[ ");
+  printf("[");
   for (p = head_p->next; p != NULL; p = p->next)
   {
     printf("%d ", p->val);
@@ -77,14 +78,48 @@ list_node_t *list_find(list_node_t *head_p, int val)
 /* リスト中に値が val の節点を探す
    見つかればその節点のポインタを, なければ NULL を返す */
 {
+  list_node_t *n;
+  for (n = head_p; n->next != NULL; n = n->next)
+  {
+    if (n->val == val)
+    {
+      return n;
+    }
+  }
+  return NULL;
 }
 
 list_node_t *list_insert_uniq(list_node_t *head_p, int val)
 {
+  list_node_t *record = list_find(head_p, val);
+  if (record == NULL)
+  {
+    list_insert(head_p, val);
+  }
+  return record;
 }
 
 list_node_t *list_insert_delete_dup(list_node_t *head_p, int val)
 {
+  list_node_t *q = head_p;
+  list_node_t *return_node;
+
+  if (list_find(head_p, val) == NULL)
+  {
+    for (;;)
+    {
+      if (q->next->val == val )
+      {
+        break;
+      }
+      q = q->next;
+    }
+    remove_node(q);
+    return NULL;
+  } else if (list_find(head_p, val) != NULL)
+  {
+    return list_insert(head_p, val);
+  }
 }
 
 list_node_t *list_insert_delete_dup2(list_node_t *head_p, int val)
