@@ -1,66 +1,12 @@
-Complex 型の加算を定義する.
-– C 言語的な方法としては, add(Complex, Complex) を
-[List 9.24]
-1: Complex add(Complex a, Complex b) {
-2: double r = a.re() + b.re();
-3: double i = a.im() + b.im();
-4: return Complex(r,i);
-5: }
-のように定義すれば,
-9–16
-[List 9.25]
-1: int main(void) {
-2: Complex x, y, z, a;
-3: x = Complex(1.00, 2.00);
-4: y = Complex(2.22, 3.14);
-5: z = Complex(4.23, 9.99);
-6: a = add(add(x,y),z);
-7: x.print(std::cout); std::cout << std::endl;
-8: y.print(std::cout); std::cout << std::endl;
-9: z.print(std::cout); std::cout << std::endl;
-10: a.print(std::cout); std::cout << std::endl;
-11: return 0;
-12: }
-のように加算を行うことができる.
-– C++ ではさらにカッコよくて便利な演算定義/呼出し方がある. 関数名に英数字からなる識別子だけで
-なく, + や - などの演算子を用いることができ, それを式の中に用いることができる. これを用いると,
-a = add(add(x,y),z);
-は,
-a = x + y + z;
-と書くことができるようになる. さらに, * や / を用いた場合には, 括弧を用いなくても自動的に+ や
-- より優先して実行してくれる. つまり, 自分の作ったクラスに対して, +, -, *, / などの演算が自由に
-定義できるわけである.
-その定義には次のような構文を用いる.
-[List 9.26]
-1: Complex operator+(Complex a, Complex b) {
-2: double r = a.re() + b.re();
-3: double i = a.im() + b.im();
-4: return Complex(r,i);
-5: }
-∗ [List 9.24] の 1 行目の関数名「add」を「operator+」 に変えるだけである.
-∗ 「operator+」 は 「+ という演算子」を意味すると考えればよい.
-∗ 「operator+」 の引数は必ず 2 個である.
-∗ この「operator+」の定義は, int 型や double 型に対して始めから定義されている「operator+」
-のオーバロードであると考えられる. (関数名は同じだが, 引数の型が違うので違う関数が呼び出さ
-れる.)
-∗ 文頭にキーワード inline を付加すれば, 関数呼び出しでなくインライン展開により処理させるこ
-とができる.
+f を実数係数の３次関数 f(x) = ax^3 + bx^2+ cx + d (ただし a≠0) とする.
+標準入力から実数値 a, b, c, d を入力し, f(x)=0 の実数解の個数を標準出力に出力するプ ログラム nsol_ceq.c を作成せよ.
+上記の動作を a=0 が入力されるまで繰り返すようにせよ.
+なお, 解の値を求める必要はない.
+(ヒント) 関数 f(x) の導関数 f '(x) を求め, f(x) の概形を把握する. 極点の値と x 軸の上下関係から解の数を求める.
+以下の場合分けを考慮する必要がある．
 
-
-課題 9.7 Complex に対する減算, 乗算を定義し, 次のようなメインルーチンで実行結果を確かめよ.
-
-[List 9.27]
-1: int main(void) {
-2: Complex a(1.00, 2.00);
-3: Complex b(3.00, 4.00);
-4: Complex c(2.35, 5.32);
-5: Complex s = c - b;
-6: s.print(std::cout); std::cout << std::endl;
-7: Complex t = a * b;
-8: t.print(std::cout); std::cout << std::endl;
-9: return 0;
-10: }
-実行して
--0.65+1.32i
--5+10i
-が出力されることを確認せよ.
+(1) 2 次方程式 f '(x) = 0 が，実数解を持たないか，重解を持つとき
+(2) 2 次方程式 f '(x) = 0 が, 2 つの実数解をもつとき
+(2a) 極大値，極小値ともに正のとき (負のとき)
+(2b) 極大値，極小値いずれか一方が 0 のとき
+(2c) 極大値が正，極小値が負のとき

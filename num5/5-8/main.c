@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include "istack.h"
 
-// istack_new/istack_delete のテスト
+// istacK_push の reallocate のテスト
 
-#define ISTACK_SIZE 8
+#define ISTACK_SIZE 4
 
 void istack_print(istack_t *s)
 {
@@ -20,7 +20,18 @@ void istack_print(istack_t *s)
 int main(void)
 {
   istack_t *s = istack_new(ISTACK_SIZE);
+  istack_push(s, 5);
+  istack_push(s, 6);
+  istack_push(s, 2);
+  istack_push(s, 8);
   istack_print(s);
+  // (size = 4, sp = 4, data = [ 5 6 2 8 ])
+
+  istack_push(s, 2);
+  istack_push(s, 8);
+  istack_print(s);
+  // (size = 8, sp = 6, data = [ 5 6 2 8 2 8 ])
+
   istack_delete(s);
   s = NULL;
   return 0;

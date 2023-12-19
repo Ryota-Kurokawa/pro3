@@ -173,7 +173,7 @@ void db_dump(db_t *db)
 
 char *db_linear_search(db_t *db, char key[])
 {
-  for (int i = 0; i <= MAX_RECORDS - 1; i++)
+  for (int i = 0; i < db->n; i++)
   {
     if (strcmp(db->record[i].key, key) == 0)
     {

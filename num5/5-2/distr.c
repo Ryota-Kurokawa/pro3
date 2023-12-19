@@ -2,33 +2,42 @@
 #include <stdlib.h>
 #include <limits.h>
 
-int *new_array_scan(int *pn);
+extern int *new_array_scan(int *pn);
 
 int main(void)
 {
-  int *a = NULL;
-  int *b = NULL;
-  int n, max, min;
-  max = INT_MIN;
-  min = INT_MAX;
-  n = 0;
-  b = (int *)malloc(max - min + 1);
-  a = new_array_scan(&n);
+  int n;
+  int *a = new_array_scan(&n);
+
+  int min = INT_MAX;
+  int max = INT_MIN;
 
   for (int i = 0; i < n; i++)
   {
-    max = a[i] < max ? max : a[i];
-    min = a[i] > min ? min : a[i];
-    b[a[i]]++;
+    if (a[i] < min)
+      min = a[i];
+    if (a[i] > max)
+      max = a[i];
   }
+
+  int size = max - min + 1;
+  int *counts = (int *)calloc(size, sizeof(int));
+
   for (int i = 0; i < n; i++)
   {
-    if (b[i] > 0)
+    counts[a[i] - min]++;
+  }
+
+  for (int i = 0; i < size; i++)
+  {
+    if (counts[i] > 0)
     {
-      printf("%d: %d\n", i, b[i]);
+      printf("%d: %d\n", i + min, counts[i]);
     }
   }
+
   free(a);
-  free(b);
+  free(counts);
+
   return 0;
 }

@@ -1,8 +1,8 @@
 科目名: プログラミング実習III
-課題: B2
+課題: B5
 番号: 37022443
 氏名: 黒川良太
-作成: 11/5
+作成: 12/12
 
 ----------------------------------------
 
@@ -18,9 +18,9 @@ n 個の整数を標準入力からその配列に読み込む.
 下記の main プログラムとリンクして動作確認せよ.
 
 
-結果　
-5-1に記載
+結果　動的に割り当てる方法は難しいと感じた
 
+11 22 33 44 55 66 77 88
 ----------------------------------------
 
 [課題2]
@@ -32,8 +32,9 @@ n 個の整数を標準入力からその配列に読み込む.
 最後に, 出現回数が 1 以上のものだけを表示する. 表示形式は, 下記の動作確認用入出力に合わせよ.
 
 
-結果
-5-2に記載
+結果　少しだけわかってきたがもう少し練習したい
+2147483640: 1
+2147483641: 1
 
 ----------------------------------------
 
@@ -43,7 +44,10 @@ n 個の整数を標準入力からその配列に読み込む.
 
 
 結果
-5-3に記載
+abcabc
+12345678901234567890
+
+理解が深まってきたので頑張りたい
 ----------------------------------------
 
 [課題4]
@@ -51,16 +55,555 @@ n 個の整数を標準入力からその配列に読み込む.
 
 
 結果
-5-4に記載
+AHB - Abha : Saudi Arabia - Abha Airport 
+AES - Aalesund : Norway Vigra 
+ABZ - Aberdeen : Scotland : United Kingdom Dyce 
+ABR - Aberdeen : SD : USA Aberdeen Regional Airport 
+ABJ - Abidjan : Cote D'ivoire Port Bouet 
+ABI - Abilene : TX : USA Municipal 
+AAR - Aarhus : Denmark Tirstrup 
+AAL - Aalborg : Denmark Aalborg 
+
+文字列に関してもう少し理解を深めたいと思った。
 
 ----------------------------------------
 
 [課題5]
-長いため略
+例題 (5-3) のプログラムを次のように書き換えよ.
+
+動的割当てと値の代入の処理を一つの関数 pref_t *pref_new(char *name, double area, int population) として独立させる. pref_new は, pref_t 型の変数を動的に割り当て, その変数に name, area, population を代入し, その変数へのポインタを返す.
+出力の処理を一つの関数 void pref_print(pref_t* p) として独立させよ.
+2つの関数を pref.c に格納し, 次の pref1main.c とリンクして実行し, 下記の出力が得られることを確認せよ. 必要な pref.h も作成して提出すること.
+
+pref1main.c
+#include <stdlib.h>
+#include "pref.h"
+
+int main(void)
+{
+   pref_t *a = NULL;
+   pref_t *b = NULL;
+   pref_t *c = NULL;
+
+   a = pref_new("Tokyo", 2187.65, 12988797);
+   b = pref_new("Osaka", 1898.01,  8840372);
+   c = pref_new("Hyogo", 8395.89,  5599359);
+
+   pref_print(a);
+   pref_print(b);
+   pref_print(c);
+
+   free(a);
+   free(b);
+   free(c);
+   a = NULL;
+   b = NULL;
+   c = NULL;
+
+   return 0;
+}
 
 結果
-5-5に記載
+
+Tokyo        2187.65  12988797
+Osaka        1898.01   8840372
+Hyogo        8395.89   5599359
+
+少しずつ理解してきたがもう少し復習したい。pointerについて学び直そうと思う
+
+------------------------------------------
+[課題6]
+課題 (5-5) の pref1main.c を次のように書き換えよ (pref2main.c として提出せよ).
+
+変数 a, b, c の代わりに, 配列 p[3] を用いよ.
+出力と領域の解放は for ループを用いて行うようにせよ.
+pref.c とリンクして実行し, 課題 (5-5) と同じ出力が得られることを確認せよ.
+結果
+同じ出力であった。
+領域の解放を忘れないように癖づけたいと思う。
+------------------------------------------
+[課題7]
+関数 pref_t *pref_new_scan() を作成し, pref.h, pref.c に追加せよ.
+
+pref_new_scan は, pref_t 型の変数を動的に割り当て, その変数に標準入力から name, area, population を読み込み, その変数へのポインタを返す. ただし, EOF を検出すると NULL を返すものとする.
+
+pref.c に作成した関数を用いて次のような処理を行うプログラム pref3main.c を作成せよ.
+
+標準入力から県のデータを EOF になるまで読み込む.
+県のデータを読み込んだのと逆順に標準出力に出力する.
+県の数の上限は 47 としてよい (pref3main.c の中で #define せよ).
+
+下記の入出力が得られることを確認せよ.
+結果
+Mie          5777.22   1862575
+Wakayama     4726.29   1005710
+Shiga        4017.36   1402132
+Nara         3691.09   1400951
+Kyoto        4613.13   2631441
+Hyogo        8395.89   5599359
+Osaka        1898.01   8840372
+Tokyo        2187.65  12988797
+------------------------------------------
+[課題8]
+以下の指示に従い, 整数型のスタックを実装する次の関数群を作成し, istack.c に格納せよ.
+
+整数型スタックを表現する構造体型 (istack_t), および各関数のプロトタイプ宣言は, 次のヘッダファイル istack.h の通りである.
+
+istack.h
+typedef struct {
+  int size;  /* スタックのサイズ (記憶できる最大のデータ数) */
+  int sp;    /* スタックポインタ (その時点で記憶しているデータ数) */
+  int *data; /* データを記憶する配列 (動的に割り当てる) の先頭要素へのポインタ */
+} istack_t; 
+
+istack_t *istack_new(int size);  /* サイズ size のスタックを新たに作り, そのポインタを返す */
+void istack_delete(istack_t *s);  /* スタックを破棄する */
+int istack_empty(istack_t *s);  /* スタックが空のとき 1 を, そうでないとき 0 を返す */
+int istack_full(istack_t *s);  /* スタックが満杯のとき 1 を, そうでないとき 0 を返す */
+void istack_push(istack_t *s, int d);  /* データ d をスタック末尾に追加する */
+void istack_pop(istack_t *s, int *d);  /* スタック末尾のデータを *d にセットし, スタックから削除する */
+
+(1) 関数 istack_new と istack_delete を実装せよ.
+
+istack_t *istack_new(int size) は, サイズ size の整数型スタックを新たに作り, そのポインタを返す.
+まず, malloc により istack_t 型の変数を 1 つ割り当てる. malloc が失敗した場合 (malloc の返り値が NULL の場合) には, その旨を stderr に出力して終了する (exit(1) を呼ぶ) ようにせよ.
+構造体の size, sp, data を次の通り初期化する.
+size には引数 size の値を代入
+sp の初期値は 0
+サイズ size の整数型配列を割り当て, その先頭要素へのポインタを data にセットする. malloc が失敗した場合には, その旨を stderr に出力して終了する (exit(1) を呼ぶ) ようにせよ.
+void istack_delete(istack_t *s) は s の指すスタック (および s->data の指す配列) の動的領域を解放する.
+まず, s->data の指すデータを解放する.
+次に s の指すデータを解放する.
+次の main とリンクして動作確認せよ.
+#include <stdio.h>
+#include <stdlib.h>
+#include "istack.h"
+
+// istack_new/istack_delete のテスト
+
+#define ISTACK_SIZE 8
+
+void istack_print(istack_t *s)
+{
+  int i; 
+  printf("(size = %d, sp = %d, data = [", s->size, s->sp);
+  for (i=0; i<s->sp; i++) {
+    printf(" %d", s->data[i]);
+  }
+  printf(" ])\n");
+}
+
+int main(void)
+{
+   istack_t *s = istack_new(ISTACK_SIZE);
+   istack_print(s);
+   istack_delete(s);
+   s = NULL;
+   return 0;
+}
+
+期待される実行結果
+
+(size = 8, sp = 0, data = [ ])
+
+(2) 関数 istack_push を実装せよ.
+
+void istack_push(istack_t *s, int d) は, データを記憶する配列の末尾に d を追加する. ただし, スタックが満杯の場合には, 何も行わないものとする.
+最初のデータが data[0] に, 次のデータが data[1] に, その次のデータが data[2] に, … と格納されるされるようにせよ. なお, sp はスタックが保持しているデータ数を表すことに留意せよ.
+スタックが満杯 (記憶しているデータ数が size に等しい場合) には, 何も行わないようにせよ.
+次の main とリンクして動作確認せよ.
+#include <stdio.h>
+#include <stdlib.h>
+#include "istack.h"
+
+// istack_push のテスト
+
+#define ISTACK_SIZE 4
+
+void istack_print(istack_t *s)
+{
+  int i; 
+  printf("(size = %d, sp = %d, data = [", s->size, s->sp);
+  for (i=0; i<s->sp; i++) {
+    printf(" %d", s->data[i]);
+  }
+  printf(" ])\n");
+}
+
+int main(void)
+{
+   istack_t *s = istack_new(ISTACK_SIZE);
+   istack_print(s);
+   // (size = 4, sp = 0, data = [ ])
+
+   istack_push(s,5);
+   istack_push(s,6);
+   istack_print(s);
+   // (size = 4, sp = 2, data = [ 5 6 ])
+
+   istack_push(s,2);
+   istack_push(s,8);
+   istack_print(s);
+   // (size = 4, sp = 4, data = [ 5 6 2 8 ])
+
+   istack_push(s,3);
+   istack_push(s,3);
+   istack_print(s);
+   // (size = 4, sp = 4, data = [ 5 6 2 8 ])
+
+   istack_delete(s);
+   s = NULL;
+   return 0;
+}
+
+期待される実行結果
+
+(size = 4, sp = 0, data = [ ])
+(size = 4, sp = 2, data = [ 5 6 ])
+(size = 4, sp = 4, data = [ 5 6 2 8 ])
+(size = 4, sp = 4, data = [ 5 6 2 8 ])
+
+(3) 関数 istack_pop を実装せよ.
+
+void istack_pop(istack_t *s, int *d) は, スタックのデータを記憶する配列の末尾の要素の値を *d にセットし, スタックからそのデータを削除する. ただし, スタックが空の場合には, データの削除は行わず, *d に 0 をセットするものとする.
+次の main とリンクして動作確認せよ.
+#include <stdio.h>
+#include <stdlib.h>
+#include "istack.h"
+
+// istack_pop のテスト
+
+#define ISTACK_SIZE 4
+
+void istack_print(istack_t *s)
+{
+  int i; 
+  printf("(size = %d, sp = %d, data = [", s->size, s->sp);
+  for (i=0; i<s->sp; i++) {
+    printf(" %d", s->data[i]);
+  }
+  printf(" ])\n");
+}
+
+int main(void)
+{
+   istack_t *s = istack_new(ISTACK_SIZE);
+   istack_push(s,5);
+   istack_push(s,6);
+   istack_push(s,2);
+   istack_push(s,8);
+   istack_print(s);
+   // (size = 4, sp = 4, data = [ 5 6 2 8 ])
+
+   int d; 
+   istack_pop(s,&d);
+   printf("d = %d\n", d); 
+   // d = 8
+   istack_print(s);
+   // (size = 4, sp = 3, data = [ 5 6 2 ])
+
+   istack_pop(s,&d);
+   printf("d = %d\n", d); 
+   // d = 2
+   istack_pop(s,&d);
+   printf("d = %d\n", d); 
+   // d = 6
+   istack_pop(s,&d);
+   printf("d = %d\n", d); 
+   // d = 5
+   istack_print(s);
+   // (size = 4, sp = 0, data = [ ])
+
+   istack_pop(s,&d);
+   printf("d = %d\n", d); 
+   // d = 0
+   istack_print(s);
+   // (size = 4, sp = 0, data = [ ])
+
+   istack_delete(s);
+   s = NULL;
+   return 0;
+}
+
+期待される実行結果
+
+(size = 4, sp = 4, data = [ 5 6 2 8 ])
+d = 8
+(size = 4, sp = 3, data = [ 5 6 2 ])
+d = 2
+d = 6
+d = 5
+(size = 4, sp = 0, data = [ ])
+d = 0
+(size = 4, sp = 0, data = [ ])
+
+(4) 関数 istack_empty と istack_full を実装せよ.
+
+int istack_empty(istack_t *s) は, スタックが空のとき 1 を, そうでないとき 0 を返す.
+int istack_full(istack_t *s) は, スタックが満杯のとき 1 を, そうでないとき 0 を返す.
+次の main とリンクして動作確認せよ.
+#include <stdio.h>
+#include <stdlib.h>
+#include "istack.h"
+
+// istack_empty/istack_full のテスト
+
+#define ISTACK_SIZE 4
+
+void istack_print(istack_t *s)
+{
+  int i; 
+  printf("(size = %d, sp = %d, data = [", s->size, s->sp);
+  for (i=0; i<s->sp; i++) {
+    printf(" %d", s->data[i]);
+  }
+  printf(" ])\n");
+}
+
+int main(void)
+{
+   istack_t *s = istack_new(ISTACK_SIZE);
+   istack_print(s);
+   // (size = 4, sp = 0, data = [ ])
+   printf("empty = %d, full = %d\n", istack_empty(s), istack_full(s)); 
+   // empty = 1, full = 0
+
+   istack_push(s,5);
+   istack_push(s,6);
+   istack_print(s);
+   // (size = 4, sp = 2, data = [ 5 6 ])
+   printf("empty = %d, full = %d\n", istack_empty(s), istack_full(s)); 
+   // empty = 0, full = 0
+
+   istack_push(s,2);
+   istack_push(s,8);
+   istack_print(s);
+   // (size = 4, sp = 4, data = [ 5 6 2 8 ])
+   printf("empty = %d, full = %d\n", istack_empty(s), istack_full(s)); 
+   // empty = 0, full = 1
+
+   int d; 
+   istack_pop(s,&d);
+   istack_pop(s,&d);
+   istack_print(s);
+   // (size = 4, sp = 2, data = [ 5 6 ])
+   printf("empty = %d, full = %d\n", istack_empty(s), istack_full(s)); 
+   // empty = 0, full = 0
+
+   istack_pop(s,&d);
+   istack_pop(s,&d);
+   istack_print(s);
+   // (size = 4, sp = 0, data = [ ])
+   printf("empty = %d, full = %d\n", istack_empty(s), istack_full(s)); 
+   // empty = 1, full = 0
+
+   istack_delete(s);
+   s = NULL;
+   return 0;
+}
+
+期待される実行結果
+
+(size = 4, sp = 0, data = [ ])
+empty = 1, full = 0
+(size = 4, sp = 2, data = [ 5 6 ])
+empty = 0, full = 0
+(size = 4, sp = 4, data = [ 5 6 2 8 ])
+empty = 0, full = 1
+(size = 4, sp = 2, data = [ 5 6 ])
+empty = 0, full = 0
+(size = 4, sp = 0, data = [ ])
+empty = 1, full = 0
+
+(5) istack_push を改良し, size を拡張できるようにせよ.
+
+満杯の istack に対して istack_push を呼び出した場合には, size を 2 倍にし, data の要素数も 2 倍になるように data の再割当てを行って, プッシュされたデータを収容できるようにせよ. 動的領域の再割り当ては, realloc 関数 (教科書 p. 135 参照) により行える.
+次の main とリンクして動作確認せよ.
+#include <stdio.h>
+#include <stdlib.h>
+#include "istack.h"
+
+// istacK_push の reallocate のテスト
+
+#define ISTACK_SIZE 4
+
+void istack_print(istack_t *s)
+{
+  int i; 
+  printf("(size = %d, sp = %d, data = [", s->size, s->sp);
+  for (i=0; i<s->sp; i++) {
+    printf(" %d", s->data[i]);
+  }
+  printf(" ])\n");
+}
+
+int main(void)
+{
+   istack_t *s = istack_new(ISTACK_SIZE);
+   istack_push(s,5);
+   istack_push(s,6);
+   istack_push(s,2);
+   istack_push(s,8);
+   istack_print(s);
+   // (size = 4, sp = 4, data = [ 5 6 2 8 ])
+
+   istack_push(s,2);
+   istack_push(s,8);
+   istack_print(s);
+   // (size = 8, sp = 6, data = [ 5 6 2 8 2 8 ])
+
+   istack_delete(s);
+   s = NULL;
+   return 0;
+}
+
+期待される実行結果
+
+(size = 4, sp = 4, data = [ 5 6 2 8 ])
+(size = 8, sp = 6, data = [ 5 6 2 8 2 8 ])
+
+(6) 完成した istack.c を次のテストプログラム istacktest.c とリンクして実行し, 期待値が出力されることを確認せよ.
+
+istacktest.c
+#include <stdio.h>
+#include <assert.h>
+#include "istack.h"
+
+#define ISTACK_SIZE 4
+
+#define PRINT 1
+#define NO_PRINT 0
 
 
-[課題 R の感想]
-個人的に今回は難易度が高かったのでテストのために復習したい。
+void istack_print(istack_t *s)
+{
+  int i; 
+  assert(s!=NULL);
+  assert(s->data!=NULL);
+  printf("(size = %d, sp = %d, data = [", s->size, s->sp);
+  for (i=0; i<s->sp; i++) {
+    printf(" %d", s->data[i]);
+  }
+  printf(" ])\n");
+}
+
+
+void repeat_istack_push(istack_t *s, int n, int do_print)
+/* push を n 回行うテスト */
+{
+  int i;
+  for (i=0; i<n; i++) {
+    int d = i*i;
+    if (do_print) {
+       printf("E=%d, F=%d; ", istack_empty(s), istack_full(s));
+       printf(" push(s,%d); ", d);
+    }
+    istack_push(s,d);
+    if (do_print) {
+      istack_print(s);
+    }
+  }
+}
+
+
+void repeat_istack_pop(istack_t *s, int n, int do_print)
+/* pop を n 回行うテスト */
+{
+  int i;
+  for (i=0; i<n; i++) {
+    if (do_print) {
+       printf("E=%d, F=%d; ", istack_empty(s), istack_full(s));
+    }
+    int d;
+    istack_pop(s,&d);
+    if (do_print) {
+       printf(" pop(s) = %d; ", d);
+      istack_print(s);
+    }
+  }
+}
+
+
+int main(void)
+{
+  istack_t *s, *s2;
+  int i, d;
+
+  s = istack_new(ISTACK_SIZE);
+  repeat_istack_push(s, ISTACK_SIZE, PRINT);
+  repeat_istack_pop(s, ISTACK_SIZE/2, PRINT);
+  repeat_istack_push(s, ISTACK_SIZE/2, PRINT);
+  repeat_istack_pop(s, ISTACK_SIZE*3/2, PRINT);
+  repeat_istack_push(s, ISTACK_SIZE*3, PRINT);
+  repeat_istack_pop(s, ISTACK_SIZE, PRINT);
+  repeat_istack_push(s, ISTACK_SIZE*10, NO_PRINT);
+  repeat_istack_pop(s, ISTACK_SIZE/2, PRINT);
+  repeat_istack_pop(s, ISTACK_SIZE*10, NO_PRINT);
+  repeat_istack_push(s, ISTACK_SIZE/2, PRINT);
+  repeat_istack_pop(s, ISTACK_SIZE/2, PRINT);
+
+  s2 = istack_new(ISTACK_SIZE);
+  repeat_istack_push(s2, ISTACK_SIZE, PRINT);
+  repeat_istack_pop(s2, ISTACK_SIZE, PRINT);
+
+  istack_delete(s2);
+  istack_delete(s);
+
+  return 0;
+}
+
+期待される出力
+結果
+
+E=1, F=0;  push(s,0); (size = 4, sp = 1, data = [ 0 ])
+E=0, F=0;  push(s,1); (size = 4, sp = 2, data = [ 0 1 ])
+E=0, F=0;  push(s,4); (size = 4, sp = 3, data = [ 0 1 4 ])
+E=0, F=0;  push(s,9); (size = 4, sp = 4, data = [ 0 1 4 9 ])
+E=0, F=1;  pop(s) = 9; (size = 4, sp = 3, data = [ 0 1 4 ])
+E=0, F=0;  pop(s) = 4; (size = 4, sp = 2, data = [ 0 1 ])
+E=0, F=0;  push(s,0); (size = 4, sp = 3, data = [ 0 1 0 ])
+E=0, F=0;  push(s,1); (size = 4, sp = 4, data = [ 0 1 0 1 ])
+E=0, F=1;  pop(s) = 1; (size = 4, sp = 3, data = [ 0 1 0 ])
+E=0, F=0;  pop(s) = 0; (size = 4, sp = 2, data = [ 0 1 ])
+E=0, F=0;  pop(s) = 1; (size = 4, sp = 1, data = [ 0 ])
+E=0, F=0;  pop(s) = 0; (size = 4, sp = 0, data = [ ])
+E=1, F=0;  pop(s) = 0; (size = 4, sp = 0, data = [ ])
+E=1, F=0;  pop(s) = 0; (size = 4, sp = 0, data = [ ])
+E=1, F=0;  push(s,0); (size = 4, sp = 1, data = [ 0 ])
+E=0, F=0;  push(s,1); (size = 4, sp = 2, data = [ 0 1 ])
+E=0, F=0;  push(s,4); (size = 4, sp = 3, data = [ 0 1 4 ])
+E=0, F=0;  push(s,9); (size = 4, sp = 4, data = [ 0 1 4 9 ])
+E=0, F=1;  push(s,16); (size = 8, sp = 5, data = [ 0 1 4 9 16 ])
+E=0, F=0;  push(s,25); (size = 8, sp = 6, data = [ 0 1 4 9 16 25 ])
+E=0, F=0;  push(s,36); (size = 8, sp = 7, data = [ 0 1 4 9 16 25 36 ])
+E=0, F=0;  push(s,49); (size = 8, sp = 8, data = [ 0 1 4 9 16 25 36 49 ])
+E=0, F=1;  push(s,64); (size = 16, sp = 9, data = [ 0 1 4 9 16 25 36 49 64 ])
+E=0, F=0;  push(s,81); (size = 16, sp = 10, data = [ 0 1 4 9 16 25 36 49 64 81 ])
+E=0, F=0;  push(s,100); (size = 16, sp = 11, data = [ 0 1 4 9 16 25 36 49 64 81 100 ])
+E=0, F=0;  push(s,121); (size = 16, sp = 12, data = [ 0 1 4 9 16 25 36 49 64 81 100 121 ])
+E=0, F=0;  pop(s) = 121; (size = 16, sp = 11, data = [ 0 1 4 9 16 25 36 49 64 81 100 ])
+E=0, F=0;  pop(s) = 100; (size = 16, sp = 10, data = [ 0 1 4 9 16 25 36 49 64 81 ])
+E=0, F=0;  pop(s) = 81; (size = 16, sp = 9, data = [ 0 1 4 9 16 25 36 49 64 ])
+E=0, F=0;  pop(s) = 64; (size = 16, sp = 8, data = [ 0 1 4 9 16 25 36 49 ])
+E=0, F=0;  pop(s) = 1521; (size = 64, sp = 47, data = [ 0 1 4 9 16 25 36 49 0 1 4 9 16 25 36 49 64 81 100 121 144 169 196 225 256 289 324 361 400 441 484 529 576 625 676 729 784 841 900 961 1024 1089 1156 1225 1296 1369 1444 ])
+E=0, F=0;  pop(s) = 1444; (size = 64, sp = 46, data = [ 0 1 4 9 16 25 36 49 0 1 4 9 16 25 36 49 64 81 100 121 144 169 196 225 256 289 324 361 400 441 484 529 576 625 676 729 784 841 900 961 1024 1089 1156 1225 1296 1369 ])
+E=0, F=0;  push(s,0); (size = 64, sp = 7, data = [ 0 1 4 9 16 25 0 ])
+E=0, F=0;  push(s,1); (size = 64, sp = 8, data = [ 0 1 4 9 16 25 0 1 ])
+E=0, F=0;  pop(s) = 1; (size = 64, sp = 7, data = [ 0 1 4 9 16 25 0 ])
+E=0, F=0;  pop(s) = 0; (size = 64, sp = 6, data = [ 0 1 4 9 16 25 ])
+E=1, F=0;  push(s,0); (size = 4, sp = 1, data = [ 0 ])
+E=0, F=0;  push(s,1); (size = 4, sp = 2, data = [ 0 1 ])
+E=0, F=0;  push(s,4); (size = 4, sp = 3, data = [ 0 1 4 ])
+E=0, F=0;  push(s,9); (size = 4, sp = 4, data = [ 0 1 4 9 ])
+E=0, F=1;  pop(s) = 9; (size = 4, sp = 3, data = [ 0 1 4 ])
+E=0, F=0;  pop(s) = 4; (size = 4, sp = 2, data = [ 0 1 ])
+E=0, F=0;  pop(s) = 1; (size = 4, sp = 1, data = [ 0 ])
+E=0, F=0;  pop(s) = 0; (size = 4, sp = 0, data = [ ])
+
+
+理解がすごく深まった。これからもっと使う場面が出てくると思うのでしっかりと知識をつけていきたい。
+-----------------------------------------
+
+
+[課題 R5 の感想]
+ポインターはgolangなどのバックエンドにも用いられるので、逃げずに基礎的な知識をつけていきたいと思う。
