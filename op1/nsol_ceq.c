@@ -7,13 +7,11 @@ int main(void)
   for (;;)
   {
     scanf("%lf %lf %lf %lf", &a, &b, &c, &d);
-
     if (a == 0)
     {
       break;
     }
-
-    double D = (-4 * a * c * c * c) - (27 * a * a * d * d) + (b * b * c * c) + (18 * a * b * c * d) - (4 * b * b * b * d); // 三次式の判別式です。
+    double D = (-4 * a * c * c * c) - (27 * a * a * d * d) + (b * b * c * c) + (18 * a * b * c * d) - (4 * b * b * b * d);
     if (D > 0)
     {
       result = 3;
